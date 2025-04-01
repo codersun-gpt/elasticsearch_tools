@@ -25,10 +25,10 @@ credentials_for_provider:
       en_US: cluster_address_with_credentials list
       pt_BR: lista de endereço do cluster com credenciais
     placeholder:
-      zh_Hans: 请输入你的集群地址和用户名密码 jsonArray格式[{"cluster_address":"username:password"}]
+      zh_Hans: 请输入你的集群地址和用户名密码 
       en_US: Please enter your cluster address and credentials in JSON array format [{"cluster_address":"username:password"}]
       pt_BR: Por favor, insira o endereço do cluster e as credenciais no formato de array JSON [{"cluster_address":"username:password"}]
     help:
-      zh_Hans: 请求集群时会通过集群地址获取登录凭证
-      en_US: When requesting a cluster, the login credentials will be obtained through the cluster address
-      pt_BR: Quando solicitando um cluster, as credenciais de login serão obtidas através do endereço do cluster
+      zh_Hans: 请求集群时会通过集群地址获取登录凭证 jsonArray格式[{"cluster_address":"username:password"}]
+      en_US: When requesting a cluster, the login credentials will be obtained through the cluster address. JSON array format [{"cluster_address":"username:password"}]
+      pt_BR: Quando solicitando um cluster, as credenciais de login serão obtidas através do endereço do cluster.  JSON array format [{"cluster_address":"username:password"}]
