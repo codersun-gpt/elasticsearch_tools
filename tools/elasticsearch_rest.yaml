@@ -87,6 +87,8 @@ output_schema:
   properties:
     success:
       type: boolean
+    error_message:
+      type: string
     result_object:
       type: object
     result_array:

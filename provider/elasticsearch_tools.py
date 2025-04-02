@@ -14,6 +14,9 @@ class ElasticsearchToolsProvider(ToolProvider):
     
     def _validate_credentials(self, credentials: dict[str, Any]) -> None:
         try:
+            
+            # TODO: 拆解， 用户配置 集群信息 [{"<clusterName>":"<clusterAddress>"}] 以及auth信息 [{"<clusterName>":"<authInfo>"}]
+            # 不在集群信息中的不可以访问
             # Extract required credentials
             auth_list_text = credentials["auth_list"]  # 格式 [{"http://address:port":"username:password"}]
             

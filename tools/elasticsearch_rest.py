@@ -9,12 +9,6 @@ from helper.auth_parser import parse_auth_list  # 引入解析函数
 
 class ElasticsearchToolsTool(Tool):
     
-    def output_variable_message(self, variable_name: str, variable_value: Any):
-        return ToolInvokeMessage(
-            variable_name=variable_name,
-            variable_value=variable_value
-        )
-    
     def _invoke(self, tool_parameters: dict[str, Any]) -> Generator[ToolInvokeMessage]:
         cluster_address = tool_parameters.get("cluster_address")  
         endpoint = tool_parameters.get("endpoint")
@@ -26,8 +20,8 @@ class ElasticsearchToolsTool(Tool):
         try:
             auth_list = parse_auth_list(auth_list_text)
         except Exception as e:
-            yield self.output_variable_message("success", False)
-            yield self.output_variable_message("error_message", f"Failed to parse auth_list: {str(e)}")
+            yield self.create_variable_message("success", False)
+            yield self.create_variable_message("error_message", f"Failed to parse auth_list: {str(e)}")
             return
 
         username = None
@@ -44,14 +38,13 @@ class ElasticsearchToolsTool(Tool):
         try:
             result = helper._make_request(method, endpoint, json=body)
         except Exception as e:
-            yield self.output_variable_message("success", False)
-            yield self.output_variable_message("error_message", f"Request failed: {str(e)}")
+            yield self.create_variable_message("success", False)
+            yield self.create_variable_message("error_message", f"Request failed: {str(e)}")
             return
-
-        yield self.output_variable_message("success", True)
+        yield self.create_variable_message("success", True)
         if isinstance(result, dict):
-            yield self.output_variable_message("result_object", result)
+            yield self.create_variable_message("result_object", result)
         elif isinstance(result, list):
-            yield self.output_variable_message("result_array", result)
+            yield self.create_variable_message("result_array", result)
         else:
-            yield self.output_variable_message("result_string", str(result))
+            yield self.create_variable_message("result_string", str(result))
