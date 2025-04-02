@@ -7,6 +7,7 @@ import json
 from dify_plugin import ToolProvider
 from dify_plugin.errors.tool import ToolProviderCredentialValidationError
 from helper.elasticsearch_helper import ElasticsearchHelper
+from helper.auth_parser import parse_auth_list
 
 class ElasticsearchToolsProvider(ToolProvider):
     """Provider for Elasticsearch API integration and credential validation."""
@@ -14,30 +15,17 @@ class ElasticsearchToolsProvider(ToolProvider):
     def _validate_credentials(self, credentials: dict[str, Any]) -> None:
         try:
             # Extract required credentials
-            auth_list_text = credentials["auth_list"]  # 格式 [{"cluster_address":"username:password"}]
-            auth_list = []
-
-            # Convert string inputs to JSON array
-            try:
-                auth_list = json.loads(auth_list_text)
-            except json.JSONDecodeError:
-                raise ToolProviderCredentialValidationError("auth_list必须是有效的JSON数组格式")
-
-            self._validate_input(auth_list)
+            auth_list_text = credentials["auth_list"]  # 格式 [{"http://address:port":"username:password"}]
+            
+            # Parse the auth_list using the helper function
+            auth_list = parse_auth_list(auth_list_text)
 
             # Check login for each cluster
             failed_clusters = []
             for auth_item in auth_list:
                 cluster_address = auth_item.get("cluster_address")
-                if not cluster_address:
-                    raise ToolProviderCredentialValidationError("auth_list中缺少cluster_address字段")
-
-                try:
-                    username, password = cluster_address.split(":")
-                except ValueError:
-                    raise ToolProviderCredentialValidationError(
-                        f"cluster_address格式错误: {cluster_address}, 应为 'username:password'"
-                    )
+                username = auth_item.get("username")
+                password = auth_item.get("password")
 
                 helper = ElasticsearchHelper(cluster_address, username, password)
 
@@ -46,12 +34,13 @@ class ElasticsearchToolsProvider(ToolProvider):
                 except RequestException as e:
                     failed_clusters.append({
                         "cluster_address": cluster_address,
+                        "auth_info": auth_item,
                         "error": str(e)
                     })
 
             if failed_clusters:
                 error_msg = "以下集群验证失败:\n" + "\n".join(
-                    [f"集群地址 {c['cluster_address']}: {c['error']}" for c in failed_clusters]
+                    [f"集群地址 {c['cluster_address']}, 认证信息: {c['auth_info']}, 错误: {c['error']}" for c in failed_clusters]
                 )
                 raise ToolProviderCredentialValidationError(error_msg)
 
