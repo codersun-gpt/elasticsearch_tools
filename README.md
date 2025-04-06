@@ -79,7 +79,7 @@ The plugin handles various error scenarios:
 
 ## Contributing
 
-GitHub: [CoderSun](https://github.com/codersun-gpt/elasticsearch_tool)
+GitHub: [CoderSun](https://github.com/codersun-gpt/elasticsearch_tools)
 
 
 
