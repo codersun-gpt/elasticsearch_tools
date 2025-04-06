@@ -6,7 +6,7 @@ identity:
     zh_Hans: elasticsearch_tools
     pt_BR: elasticsearch_tools
   description:
-    en_US: some  tools to call elasticsearch or manage elasticsearch
+    en_US: some tools to call elasticsearch or manage elasticsearch
     zh_Hans: 一些调用elasticsearch或管理elasticsearch的工具 
     pt_BR: algumas ferramentas para chamar elasticsearch ou gerenciar elasticsearch
   icon: icon.svg
@@ -17,18 +17,33 @@ extra:
     source: provider/elasticsearch_tools.py
 
 credentials_for_provider:
+  cluster_info:
+    type: secret-input
+    required: true
+    label:
+      zh_Hans: 集群信息列表
+      en_US: cluster information list
+      pt_BR: lista de informações do cluster
+    placeholder:
+      zh_Hans: 请输入你的集群信息
+      en_US: Please enter your cluster information [{"<cluster_name>":"cluster_address"}]
+      pt_BR: Por favor, insira as informações do cluster [{"<cluster_name>":"cluster_address"}]
+    help:
+      zh_Hans: 配置集群名称和地址的映射 [{"<cluster_name>":"cluster_address"}]
+      en_US: Configure the mapping of cluster names to addresses [{"<cluster_name>":"cluster_address"}]
+      pt_BR: Configure o mapeamento de nomes de cluster para endereços [{"<cluster_name>":"cluster_address"}]
   auth_list:
     type: secret-input
     required: true
     label:
-      zh_Hans: 集群地址和用户名密码 列表
-      en_US: cluster_address_with_credentials list
-      pt_BR: lista de endereço do cluster com credenciais
+      zh_Hans: 集群认证信息列表
+      en_US: cluster authentication information list
+      pt_BR: lista de informações de autenticação do cluster
     placeholder:
-      zh_Hans: 请输入你的集群地址和用户名密码 
-      en_US: Please enter your cluster address and credentials in JSON array format [{"cluster_address":"username:password"}]
-      pt_BR: Por favor, insira o endereço do cluster e as credenciais no formato de array JSON [{"cluster_address":"username:password"}]
+      zh_Hans: 请输入你的认证信息
+      en_US: Please enter your authentication information
+      pt_BR: Por favor, insira as informações de autenticação
     help:
-      zh_Hans: 请求集群时会通过集群地址获取登录凭证 jsonArray格式[{"cluster_address":"username:password"}]
-      en_US: When requesting a cluster, the login credentials will be obtained through the cluster address. JSON array format [{"cluster_address":"username:password"}]
-      pt_BR: Quando solicitando um cluster, as credenciais de login serão obtidas através do endereço do cluster.  JSON array format [{"cluster_address":"username:password"}]
+      zh_Hans: 配置集群名称和认证信息的映射 [{"<cluster_name>":"username:password"}]
+      en_US: Configure the mapping of cluster names to authentication information  [{"<cluster_name>":"username:password"}]
+      pt_BR: Configure o mapeamento de nomes de cluster para informações de autenticação  [{"<cluster_name>":"username:password"}]

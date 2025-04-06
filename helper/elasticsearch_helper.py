@@ -23,13 +23,17 @@ class ElasticsearchHelper:
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         })
-
+        
     def _make_request(self, method: str, endpoint: str, **kwargs) -> Dict:
+        return self._make_request(method, endpoint, timeout=10, **kwargs)
+    
+    def _make_request(self, method: str, endpoint: str, timeout: int = 10, **kwargs) -> Dict:
         """Make HTTP request to ES cluster.
         
         Args:
             method: HTTP method (GET, POST, etc.)
             endpoint: API endpoint
+            timeout: Request timeout in seconds (default: 10)
             **kwargs: Additional arguments for requests
             
         Returns:
@@ -39,7 +43,7 @@ class ElasticsearchHelper:
             requests.RequestException: If request fails
         """
         url = urljoin(self.base_url, endpoint)
-        response = self.session.request(method, url, **kwargs)
+        response = self.session.request(method, url, timeout=timeout, **kwargs)
         response.raise_for_status()
         return response.json()
 

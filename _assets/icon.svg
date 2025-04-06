@@ -1,6 +1,21 @@
-<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
-  <path d="M20 20 V80 M20 20 H60 Q80 20 80 40 T60 60 H20" 
-        fill="none" 
-        stroke="black" 
-        stroke-width="5"/>
+<svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+    <!-- 帽子主体（缩小并调整位置） -->
+    <g transform="translate(160, -10) scale(0.5)">
+        <path d="M 60 130 Q 150 10 240 130 Z" fill="#F7C242" stroke="#BD4A0E" stroke-width="3" />
+        <!-- 脸部（缩小） -->
+        <ellipse cx="150" cy="170" rx="55" ry="65" fill="#FDE1BE" stroke="#000" stroke-width="2" />
+        <!-- 眼睛 -->
+        <circle cx="130" cy="155" r="5" fill="#000" />
+        <circle cx="170" cy="155" r="5" fill="#000" />
+        <!-- 嘴巴 -->
+        <path d="M 125 185 Q 150 205 175 185" fill="none" stroke="#000" stroke-width="3" />
+    </g>
+
+    <!-- Elasticsearch 标志 -->
+    <g transform="translate(10, 50) scale(2)"> <!-- 调整位置和缩放 -->
+        <circle cx="50" cy="50" r="50" fill="#005571" /> <!-- 外圆 -->
+        <path d="M50 0A50 50 0 0 1 100 50H50V0Z" fill="#FEC514" /> <!-- 黄色部分 -->
+        <path d="M50 100A50 50 0 0 1 0 50H50V100Z" fill="#00BFB3" /> <!-- 青绿色部分 -->
+        <path d="M50 50H100A50 50 0 0 1 50 100V50Z" fill="#FFFFFF" /> <!-- 白色部分 -->
+    </g>
 </svg>
